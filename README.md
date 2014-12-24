@@ -48,9 +48,22 @@ $scope.loadPhones = function(page, cb) {
 
 #scroll-template#
 The template to bind to each page object. In this template, iterate your items. Usually your page would be an array of item objects you'd iterate in the page template.
+
+Example "page.html" for when your page object is an array of simple strings:
 ```html
 <div ng-repeat="item in page" class="item">{{item}}</div>
 ```
+
+Example "page.html" for when your page object is an array of item objects with attributes "name" & "img":
+```html
+<div ng-repeat="item in page" class="item">
+  <h1>{{item.name}}</h1>
+  <img ng-src="{{item.img}}" />
+  <!-- etc.. -->
+</div>
+```
+
+As you can see, you structure your data however you want. You can use whatever you want to represent a page (wether its an array of items, or something absurd), and then you choose any way to render that "page" & any of it's contained data (such as items, etc..)
 
 #Implementation Notes#
 User passes in template file, callback for loading a page, and current page binding (changing this outside directive causes scroll animation). Scrolling within the directive updates this for outside observers.
