@@ -40,6 +40,7 @@ phonecatApp.directive('myScroll', function() {
                         // after the new DOM node page is added to the top, scroll down by it's height.
                         // prevents getting stuck in recursion when user sits at the top.
                         // however, it does cause a small flicker between when the DOM is updated & Angular runs the $timeout.
+                        // only way to fix this may be to do all DOM insertions w/ jquery inside this directive, instead of it using ng-repeat?
                         $timeout(function() {
                             var firstPageHeight = $element.find('.scrollPagesWrapper div.scrollPage').height();
                             var newHeight = $($element).scrollTop()+firstPageHeight;
