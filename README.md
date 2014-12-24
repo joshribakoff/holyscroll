@@ -1,7 +1,7 @@
 holyscroll
 ==========
 
-This is a work in progress.
+This is a work in progress. Demo - http://joshribakoff.github.io/holyscroll/controller.html
 
 Goals:
 - allow scrolling up & down "infinite" pagination style
