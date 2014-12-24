@@ -11,7 +11,7 @@ Goals:
 - the directive doesn't need to handle rendering the page links. That warrants a separate wrapper directive which observes & mutates the "currentPage" model that the directive exports.
 
 Anywhere you want a scroll container:
-```
+```html
 <div my-scroll id="container"
   scroll-template="page.html" 
   scroll-callback="loadPhones(page, cb)"
@@ -21,9 +21,34 @@ Anywhere you want a scroll container:
 #scroll-callback#
 Directive will call this function on your controller for loading each page object.
 
+Syncronous callback:
+```js
+$scope.loadPhones = function(page, cb) {
+    // build an array of items for the requested page
+    var items = [];
+    for(i=page*perPage-perPage+1; i<=page*perPage; i++) {
+        items.push('Phone '+i);
+    }
+    
+    // return items
+    cb(items);
+}
+```
+
+Asynchronous callback:
+```js
+$scope.loadPhones = function(page, cb) {
+    // build an array of items for the requested page
+    $http.get('/items?page='+page).success(function(r) {
+      // return items
+      cb(items);
+    });
+}
+```
+
 #scroll-template#
 The template to bind to each page object. In this template, iterate your items. Usually your page would be an array of item objects you'd iterate in the page template.
-```
+```html
 <div ng-repeat="item in page" class="item">{{item}}</div>
 ```
 
