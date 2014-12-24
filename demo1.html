@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="phonecatApp">
+<head>
+    <title>Demo 1</title>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="demo1.js"></script>
+    <script src="directive.js"></script>
+    <link rel="stylesheet" href="demos.css" />
+</head>
+<body ng-controller="PhoneListCtrl" id="demo1">
+
+    <div my-scroll id="container"
+         scroll-template="'page.html'"
+         scroll-callback="loadPhones(page, cb)"
+         scroll-current-page="currentPage"></div>
+
+    <code ng-non-bindable>{{currentPage}}</code>: {{ currentPage }}
+
+</body>
+</html>
