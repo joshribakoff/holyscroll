@@ -1,0 +1,9 @@
+#container {
+    border:1px red solid;
+    height:200px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.item {
+    border:1px green solid;
+}

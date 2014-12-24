@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app="phonecatApp">
+<head>
+    <title>My Angular App</title>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="controller.js"></script>
+    <script src="directive.js"></script>
+    <link rel="stylesheet" href="controller.css" />
+</head>
+<body ng-controller="PhoneListCtrl">
+    <div my-scroll id="container" scroll-template="page.html" scroll-callback="loadPhones(page, cb)" scroll-page="currentPage"></div>
+
+
+    <script type="text/ng-template" id="directive.html">
+        <div class="scrollPagesWrapper">
+            <div ng-repeat="page in array">
+                <!--<div ng-include="{{scrollTemplate}}"></div>-->
+                <div class="scrollPage" ng-include="'page.html'"></div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="page.html">
+        <div ng-repeat="item in page" class="item">{{item}}</div>
+    </script>
+</body>
+</html>
