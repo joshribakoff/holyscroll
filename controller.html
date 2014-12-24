@@ -14,7 +14,7 @@
 
     <script type="text/ng-template" id="directive.html">
         <div class="scrollPagesWrapper">
-            <div ng-repeat="page in array">
+            <div ng-repeat="page in array" class="scrollPage">
                 <!--<div ng-include="{{scrollTemplate}}"></div>-->
                 <div class="scrollPage" ng-include="'page.html'"></div>
             </div>

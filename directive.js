@@ -9,7 +9,7 @@ phonecatApp.directive('myScroll', function() {
         var scrollAreaHeight = $element.height();
 
         $scope.array = [];
-        $scope.loadPage = function(pageToLoad) {
+        $scope.appendPage = function(pageToLoad) {
             $scope.scrollCallback({
                 page: pageToLoad,
                 cb: function (r) {
@@ -20,8 +20,26 @@ phonecatApp.directive('myScroll', function() {
             });
         }
 
-        var page = 1;
-        $scope.loadPage(page);
+        $scope.prependPage = function(pageToLoad) {
+            $scope.scrollCallback({
+                page: pageToLoad,
+                cb: function (r) {
+                    if (0 != r.length) {
+                        $scope.array.unshift(r);
+                        // after the new DOM node page is added to the top, scroll down by it's height.
+                        $timeout(function() {
+                            var firstPageHeight = $element.find('.scrollPagesWrapper div.scrollPage').height();
+                            var newHeight = $($element).scrollTop()+firstPageHeight;
+                            $($element).scrollTop(newHeight);
+                        });
+                    }
+                }
+            });
+        }
+
+        var appendPage = 1;
+        var prependPage = appendPage;
+        $scope.appendPage(appendPage);
 
         var last_scroll = null;
         var onScroll = function() {
@@ -32,9 +50,12 @@ phonecatApp.directive('myScroll', function() {
             if (null == last_scroll || Math.abs(position - last_scroll) >= 10) {
                 // If the user scrolls close to the bottom, append the next page div
                 if (position >= 0.9 * height) {
-                    page = page + 1;
-                    $scope.loadPage(page);
+                    appendPage = appendPage + 1;
+                    $scope.appendPage(appendPage);
                     return false;
+                } else if (position <= 0.1*height) {
+                    prependPage = prependPage - 1;
+                    $scope.prependPage(prependPage);
                 }
                 last_scroll = position;
             }
@@ -44,9 +65,8 @@ phonecatApp.directive('myScroll', function() {
 
         var promise = $interval(function() {
             if ($element.height() >= $element.find('.scrollPagesWrapper').height()) {
-                console.error('content too short, triggering next page!');
-                page = page + 1;
-                $scope.loadPage(page);
+                appendPage = appendPage + 1;
+                $scope.loadPage(appendPage);
             } else {
                 $interval.cancel(promise);
             }
