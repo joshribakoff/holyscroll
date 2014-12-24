@@ -80,5 +80,11 @@ $watch `currentPage`, if it changes outside the directive, find the bound page <
 
 When not enough items on 1st page to get a scrollbar, 2nd page will never load - Set a flag at startup. When loadPage calls back, set a $timeout for 0ms to run after DOM update. If height of loaded pages doesn't exceed container (eg. there's no scrollbar), trigger the next page to load. If the height is sufficient, unset the flag (currently uses an interval, works but prone to race condition).
 
-
+# bonus features #
+- replace non visible pages with empty space of appropriate height (remove non visible DOM nodes).
+- for convenience, should be able to pass URL as a string instead of callback, if you do this, it assumes your page object is an array of items, and you can avoid the boilerplate hell of wiring up all the asyncronous logic every time. would also export a flag to calling scope to indicate status (1=loading, 0=idle), can then use this value with ng-show on your loading indicator, etc.
+- should the directive modify the URL, or leave it up the calling scope/some kind of wrapper directive?
+- ability to scroll right & left, instead of up & down? could be kinda fun.
+- jquery plugin version of this thing?
+- MeteorJS plugin ("smart package") for this thing? Ability to paginate reactive collections could be fun.
 
