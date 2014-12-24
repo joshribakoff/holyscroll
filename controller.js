@@ -1,7 +1,7 @@
 var phonecatApp = angular.module('phonecatApp', []);
 
 phonecatApp.controller('PhoneListCtrl',  function ($scope) {
-    var perPage = 20;
+    var perPage = 10;
 
     $scope.loadPhones = function(page, cb) {
         var items = [];

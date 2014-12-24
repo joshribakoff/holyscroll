@@ -9,19 +9,26 @@
     <link rel="stylesheet" href="controller.css" />
 </head>
 <body ng-controller="PhoneListCtrl">
-    <div my-scroll id="container" scroll-template="page.html" scroll-callback="loadPhones(page, cb)" scroll-page="currentPage"></div>
 
+    <div my-scroll id="container"
+         scroll-template="page.html"
+         scroll-callback="loadPhones(page, cb)"
+         scroll-current-page="currentPage"></div>
+    |{{ currentPage }}|
 
     <script type="text/ng-template" id="directive.html">
+
         <div class="scrollPagesWrapper">
-            <div ng-repeat="page in array" class="scrollPage">
+            <div ng-repeat="page in array">
                 <!--<div ng-include="{{scrollTemplate}}"></div>-->
                 <div class="scrollPage" ng-include="'page.html'"></div>
             </div>
         </div>
+
     </script>
 
     <script type="text/ng-template" id="page.html">
+        <span class="page" data-page="{{page.page}}">page: {{page.page}}</span>
         <div ng-repeat="item in page" class="item">{{item}}</div>
     </script>
 </body>
