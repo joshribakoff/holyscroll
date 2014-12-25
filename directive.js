@@ -140,11 +140,11 @@ phonecatApp.directive('myScroll', function() {
                 } else {
                     // change was due to change outside directive, reset scope & start out at new page.
                     $scope.array = [];
+                    $($element).scrollTop(0);
                     startPage = newValue;
                     appendPage = newValue;
                     prependPage = newValue;
                     $scope.appendPage(appendPage);
-                    $($element).scrollTop(1);
                     $scope.nudge();
                 }
             }
