@@ -144,6 +144,7 @@ phonecatApp.directive('myScroll', function() {
                     appendPage = newValue;
                     prependPage = newValue;
                     $scope.appendPage(appendPage);
+                    $($element).scrollTop(1);
                     $scope.nudge();
                 }
             }
