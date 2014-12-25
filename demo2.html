@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="phonecatApp">
+<head>
+    <title>Demo 1</title>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="demo1.js"></script>
+    <script src="directive.js"></script>
+    <link rel="stylesheet" href="demos.css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body ng-controller="PhoneListCtrl" id="demo1">
+
+    <div my-scroll id="container"
+         scroll-template="'page.html'"
+         scroll-callback="loadPhones(page, cb)"
+         scroll-current-page="currentPage"></div>
+
+    <code ng-non-bindable>{{currentPage}}</code>: {{ currentPage }}
+    <pagination
+            total-items="totalPages"
+            ng-model="currentPage"
+            items-per-page="1"
+            max-size="maxSize"
+            class="pagination-sm"
+            boundary-links="true"></pagination>
+
+</body>
+</html>

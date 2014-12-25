@@ -21,7 +21,7 @@ phonecatApp.directive('myScroll', function() {
                     }
                     loading = false;
                     $timeout(function(){
-                        $scope.scrollCurrentPage = $scope.currentPage();
+                        $scope.setCurrentPage();
                     });
                 }
             });
@@ -43,16 +43,23 @@ phonecatApp.directive('myScroll', function() {
                         // only way to fix this may be to do all DOM insertions w/ jquery inside this directive, instead of it using ng-repeat?
                         $timeout(function() {
                             var firstPageHeight = $element.find('.scrollPagesWrapper div.scrollPage').height();
-                            var newHeight = $($element).scrollTop()+firstPageHeight;
+                            var newHeight = $($element).scrollTop() + firstPageHeight;
                             $($element).scrollTop(newHeight);
                         });
                     }
                     loading = false;
                     $timeout(function() {
-                        $scope.scrollCurrentPage = $scope.currentPage();
+                        $scope.setCurrentPage();
                     });
                 }
             });
+        }
+
+        var findPageDiv = function(page) {
+            var pagesAfterPrepend = page - prependPage;
+            var index = pagesAfterPrepend;
+            var pageDiv = $element.find('.scrollPagesWrapper div.scrollPage')[index];
+            return pageDiv;
         }
 
         $scope.currentPage = function() {
@@ -60,17 +67,9 @@ phonecatApp.directive('myScroll', function() {
                 return appendPage;
             }
 
-            var position = $element.scrollTop();
             var containerHeight = $element.height();
-
-            for (var index = $scope.array.length-1; index >= 0; --index) {
-                if(prependPage<0) {
-                    var page = index - Math.abs(prependPage);
-                } else {
-                    var page = index;
-                }
-
-                var pageDiv = $element.find('.scrollPagesWrapper div.scrollPage')[index];
+            for (var page = appendPage; page >= prependPage; --page) {
+                var pageDiv = findPageDiv(page);
                 var pagesTop = $(pageDiv).offset().top;
 
                 // if the top of the page clears the bottom of the container, its active.
@@ -80,8 +79,10 @@ phonecatApp.directive('myScroll', function() {
             }
         }
 
-        var appendPage = 1;
-        var prependPage = appendPage;
+        var startPage = 1;
+        var appendPage = startPage;
+        var prependPage = startPage;
+
         $scope.appendPage(appendPage);
 
         var last_scroll = null;
@@ -95,7 +96,7 @@ phonecatApp.directive('myScroll', function() {
 
             // throttle the calculations to every 10px
             if (null == last_scroll || Math.abs(position - last_scroll) >= 10) {
-                $scope.scrollCurrentPage = $scope.currentPage();
+                $scope.setCurrentPage();
 
                 // If the user scrolls close to the bottom, append the next page div
                 if (position >= 0.9 * height) {
@@ -125,6 +126,29 @@ phonecatApp.directive('myScroll', function() {
                 $interval.cancel(promise);
             }
         }, 100);
+
+        var scrolledToPage;
+        $scope.$watch('scrollCurrentPage', function(newValue, oldValue) {
+            if (newValue && typeof oldValue != 'undefined' ) {
+
+                if(newValue == scrolledToPage) {
+                    // change was due to scroll events within the directive
+                } else {
+                    // change was due to change outside directive, reset scope & start out at new page.
+                    $scope.array = [];
+                    startPage = newValue;
+                    appendPage = newValue;
+                    prependPage = newValue;
+                    $scope.appendPage(appendPage);
+
+                }
+            }
+        });
+
+        $scope.setCurrentPage = function() {
+            scrolledToPage = $scope.currentPage();
+            $scope.scrollCurrentPage = scrolledToPage;
+        }
     }
 
     return {
