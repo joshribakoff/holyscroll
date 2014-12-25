@@ -68,12 +68,12 @@ phonecatApp.directive('myScroll', function() {
             }
 
             var containerHeight = $element.height();
-            for (var page = appendPage; page >= prependPage; --page) {
+            for (var page = prependPage; page <= appendPage; ++page) {
                 var pageDiv = findPageDiv(page);
-                var pagesTop = $(pageDiv).offset().top;
+                var pagesBottom = $(pageDiv).offset().top + $(pageDiv).height();
 
                 // if the top of the page clears the bottom of the container, its active.
-                if(pagesTop<containerHeight) {
+                if(pagesBottom > 0) {
                     return page;
                 }
             }
