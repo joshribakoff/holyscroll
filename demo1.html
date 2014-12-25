@@ -2,8 +2,8 @@
 <html ng-app="phonecatApp">
 <head>
     <title>Demo 1</title>
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
     <script src="demo1.js"></script>
     <script src="directive.js"></script>
     <link rel="stylesheet" href="demo1.css" />
@@ -15,7 +15,9 @@
          scroll-callback="loadPhones(page, cb)"
          scroll-current-page="currentPage"></div>
 
-    <code ng-non-bindable>{{currentPage}}</code>: {{ currentPage }}
+    <span class="current">
+        <code ng-non-bindable>{{currentPage}}</code>: {{ currentPage }}
+    </span>
 
 </body>
 </html>

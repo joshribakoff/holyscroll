@@ -92,10 +92,11 @@ phonecatApp.directive('myScroll', function() {
                 return;
             }
             position = $element.scrollTop();
-            height = $element.find('.scrollPagesWrapper').height() - scrollAreaHeight;
 
             // throttle the calculations to every 10px
             if (null == last_scroll || Math.abs(position - last_scroll) >= 10) {
+                scrollAreaHeight = $element.height();
+                height = $element.find('.scrollPagesWrapper').height() - scrollAreaHeight;
                 $scope.setCurrentPage();
 
                 // If the user scrolls close to the bottom, append the next page div
