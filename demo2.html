@@ -7,7 +7,7 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="demo1.js"></script>
     <script src="directive.js"></script>
-    <link rel="stylesheet" href="demos.css" />
+    <link rel="stylesheet" href="demo2.css" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body ng-controller="PhoneListCtrl" id="demo1">
@@ -17,7 +17,6 @@
          scroll-callback="loadPhones(page, cb)"
          scroll-current-page="currentPage"></div>
 
-    <code ng-non-bindable>{{currentPage}}</code>: {{ currentPage }}
     <pagination
             total-items="totalPages"
             ng-model="currentPage"

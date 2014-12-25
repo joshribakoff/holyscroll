@@ -116,16 +116,19 @@ phonecatApp.directive('myScroll', function() {
         // if the content is too short for there to be a scrollbar, add additional pages or "nudge" it up to 10x or until
         // there is enough content for there to be a scrollbar. Otherwise the user would be stuck on page 1 and unable to
         // to trigger a scroll event to load more pages.
-        var nudgeCount = 0;
-        var promise = $interval(function() {
-            if (nudgeCount < 10 && $element.height() >= $element.find('.scrollPagesWrapper').height()) {
-                nudgeCount++;
-                appendPage = appendPage + 1;
-                $scope.loadPage(appendPage);
-            } else {
-                $interval.cancel(promise);
-            }
-        }, 100);
+        $scope.nudge = function() {
+            var nudgeCount = 0;
+            var promise = $interval(function () {
+                if (nudgeCount < 10 && $element.height() >= $element.find('.scrollPagesWrapper').height()) {
+                    nudgeCount++;
+                    appendPage = appendPage + 1;
+                    $scope.appendPage(appendPage);
+                } else {
+                    $interval.cancel(promise);
+                }
+            }, 100);
+        }
+        $scope.nudge();
 
         var scrolledToPage;
         $scope.$watch('scrollCurrentPage', function(newValue, oldValue) {
@@ -140,7 +143,7 @@ phonecatApp.directive('myScroll', function() {
                     appendPage = newValue;
                     prependPage = newValue;
                     $scope.appendPage(appendPage);
-
+                    $scope.nudge();
                 }
             }
         });
