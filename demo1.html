@@ -5,12 +5,12 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="demo1.js"></script>
-    <script src="directive.js"></script>
+    <script src="bower_components/holyscroll/directive.js"></script>
     <link rel="stylesheet" href="demo1.css" />
 </head>
 <body ng-controller="PhoneListCtrl" id="demo1">
 
-    <div my-scroll id="container"
+    <div holy-scroll id="container"
          scroll-template="'page.html'"
          scroll-callback="loadPhones(page, cb)"
          scroll-current-page="currentPage"></div>

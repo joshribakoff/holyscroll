@@ -1,5 +1,5 @@
 var app = angular.module('holyscroll', []);
-app.directive('myScroll', function() {
+app.directive('holyScroll', function() {
 
     function link(scope, element, attrs) {
 

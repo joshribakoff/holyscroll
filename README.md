@@ -30,14 +30,14 @@ var app = angular.module('app', ['holyscroll']);
 ```
 
 #Usage#
-Anywhere you want a scrolling div, call the directive `my-scroll`. 
+Anywhere you want a scrolling div, call the directive `holy-scroll`. 
 ```html
-<div my-scroll>
+<div holy-scroll>
 ```
 
 You must also pass in some additional HTML attributes - You must tell the directive what template to use to render each page, where to fetch each page, and what variable to store the "current page" number in on your scope. 
 ```html
-<div my-scroll
+<div holy-scroll
   scroll-template="page.html" 
   scroll-callback="loadPhones(page, cb)"
   scroll-page="currentPage"></div>
@@ -49,7 +49,7 @@ This function on your controller will be called for loading each page object.
 
 in your template: 
 ```html
-<div my-scroll scroll-callback="loadPhones(page, cb)"
+<div holy-scroll scroll-callback="loadPhones(page, cb)"
 ```
 
 in your controller - Syncronous (offline):
@@ -81,7 +81,7 @@ $scope.loadPhones = function(page, cb) {
 This template filename will be loaded & used to render each page fetched from the server. A page can be any json serializable object. It's normally supposed to be an array of item array/objects.
 
 ```html
- <div my-scroll scroll-template="page.html"></div>
+ <div holy-scroll scroll-template="page.html"></div>
  ```
 
 Example "page.html" for when your page object is an array of item strings:
