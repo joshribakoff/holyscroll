@@ -52,7 +52,7 @@ in your template:
 <div holy-scroll scroll-callback="loadItems(page, cb)"
 ```
 
-in your controller - Syncronous (offline):
+synchronous (offline) callback:
 ```js
 $scope.loadItems = function(page, cb) {
     var items = [];
@@ -62,7 +62,7 @@ $scope.loadItems = function(page, cb) {
 }
 ```
 
-in your controller - Asynchronous (remote ajax):
+asynchronous (remote ajax) callback:
 ```js
 $scope.loadItems = function(page, cb) {
     // do an ajax call to fetch from the server the items for the requested page
@@ -74,18 +74,14 @@ $scope.loadItems = function(page, cb) {
 ```
 
 #scroll-template#
-This template filename will be loaded & used to render each page fetched from the server. A page can be any json serializable object. It's normally supposed to be an array of item array/objects.
+This template filename will be loaded & used to render each page fetched from the server.
 
+Usage:
 ```html
  <div holy-scroll scroll-template="page.html"></div>
  ```
 
-Example "page.html" for when your page object is an array of item strings:
-```html
-<div ng-repeat="item in page" class="item">{{item}}</div>
-```
-
-Example "page.html" for when your page object is an array of item objects
+Example "page.html" - example template for when your `page` returned by the callback is an array of item objects, each item having keys "name", & "img".
 ```html
 <div ng-repeat="item in page" class="item">
   <h1>{{item.name}}</h1>
@@ -93,6 +89,8 @@ Example "page.html" for when your page object is an array of item objects
   <!-- etc.. -->
 </div>
 ```
+
+You can structure your page object any way you want. For simplicity, its recommended that a page be an array of items. How you structure the "items" is up to you.
 
 # roadmap #
 - replace non visible pages with empty space of appropriate height (remove non visible DOM nodes).
