@@ -11,6 +11,23 @@ Holyscroll - Infinite pagination hybrid
 - changing the current page from outside the directive (clicking on pages) makes the directive to scroll to that page.
 - as the user scrolls pages within the directive, the directive updates the current page model for observers outside the directive to update pagination links (current page is highlighted).
 
+#Install#
+This package is available via bower & follows standard conventions. Manually save `directive.js` or use bower to install it:
+
+```
+bower install holyscroll --save
+```
+
+Include the JS in your HTML sources, after Angular:
+```
+<script src="bower_components/holyscroll/directive.js"></script>
+```
+
+Tell Angular to add it as a dependency to your app:
+```
+var app = angular.module('app', ['holyscroll']);
+```
+
 #Usage#
 Anywhere you want a scrolling div, call the directive `my-scroll`. 
 ```html
