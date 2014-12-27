@@ -20,12 +20,12 @@ bower install holyscroll --save
 ```
 
 Include the JS in your HTML sources, after Angular:
-```
+```html
 <script src="bower_components/holyscroll/directive.js"></script>
 ```
 
 Tell Angular to add it as a dependency to your app:
-```
+```js
 var app = angular.module('app', ['holyscroll']);
 ```
 
@@ -39,7 +39,7 @@ You must also pass in some additional HTML attributes - You must tell the direct
 ```html
 <div holy-scroll
   scroll-template="page.html" 
-  scroll-callback="loadPhones(page, cb)"
+  scroll-callback="loadItems(page, cb)"
   scroll-page="currentPage"></div>
 ```
 
@@ -49,29 +49,25 @@ This function on your controller will be called for loading each page object.
 
 in your template: 
 ```html
-<div holy-scroll scroll-callback="loadPhones(page, cb)"
+<div holy-scroll scroll-callback="loadItems(page, cb)"
 ```
 
 in your controller - Syncronous (offline):
 ```js
-$scope.loadPhones = function(page, cb) {
-    // build an array of items for the requested page
+$scope.loadItems = function(page, cb) {
     var items = [];
-    for(i=page*perPage-perPage+1; i<=page*perPage; i++) {
-        items.push('Phone '+i);
-    }
+    // do something here to get the items for the requested page ....
     
-    // return items
-    cb(items);
+    cb(items); // then, return items
 }
 ```
 
 in your controller - Asynchronous (remote ajax):
 ```js
-$scope.loadPhones = function(page, cb) {
-    // build an array of items for the requested page
-    $http.get('/items?page='+page).success(function(r) {
-      // return items
+$scope.loadItems = function(page, cb) {
+    // do an ajax call to fetch from the server the items for the requested page
+    $http.get('items?page='+page).success(function(r) {
+      // then, return items
       cb(items);
     });
 }
