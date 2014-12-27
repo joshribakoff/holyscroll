@@ -1,0 +1,29 @@
+{
+  "name": "holyscroll",
+  "version": "0.0.0",
+  "homepage": "https://github.com/joshribakoff/holyscroll",
+  "description": "Angular infinite scrolling pagination hybrid",
+  "main": "directive.js",
+  "keywords": [
+    "infinite",
+    "scrolling",
+    "pagination",
+    "angular"
+  ],
+  "authors": [
+    "Josh Ribakoff"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.8",
+    "bootstrap": "~3.3.1",
+    "angular-bootstrap": "~0.12.0"
+  }
+}

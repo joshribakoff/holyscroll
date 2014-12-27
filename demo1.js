@@ -1,4 +1,4 @@
-var phonecatApp = angular.module('phonecatApp', []);
+var phonecatApp = angular.module('phonecatApp', ['holyscroll']);
 
 phonecatApp.controller('PhoneListCtrl',  function ($scope) {
     var perPage = 10;

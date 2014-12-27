@@ -1,9 +1,9 @@
-var phonecatApp = angular.module('phonecatApp', ['ui.bootstrap']);
+var phonecatApp = angular.module('phonecatApp', ['ui.bootstrap', 'holyscroll']);
 
 phonecatApp.controller('PhoneListCtrl',  function ($scope) {
     var perPage = 10;
 
-    $scope.maxSize = 15;
+    $scope.maxSize = 5;
     $scope.totalPages = 175;
 
     $scope.loadPhones = function(page, cb) {

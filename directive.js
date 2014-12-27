@@ -1,4 +1,5 @@
-phonecatApp.directive('myScroll', function() {
+var app = angular.module('holyscroll', []);
+app.directive('myScroll', function() {
 
     function link(scope, element, attrs) {
 
