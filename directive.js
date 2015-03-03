@@ -16,10 +16,10 @@ app.directive('holyScroll', function() {
             $scope.scrollCallback({
                 page: pageToLoad,
                 cb: function (r) {
-                    if (0 != r.length) {
-                        r.page=pageToLoad;
-                        $scope.array.push(r);
-                    }
+
+                    r.page=pageToLoad;
+                    $scope.array[pageToLoad] = r;
+
                     loading = false;
                     $timeout(function(){
                         $scope.setCurrentPage();
@@ -56,28 +56,37 @@ app.directive('holyScroll', function() {
             });
         }
 
-        var findPageDiv = function(page) {
-            var pagesAfterPrepend = page - prependPage;
-            var index = pagesAfterPrepend;
-            var pageDiv = $element.find('.scrollPagesWrapper div.scrollPage')[index];
-            return pageDiv;
+        var findPageDiv = function(pageNumToFind) {
+            var selector = '.scrollPagesWrapper div.scrollPage-'+pageNumToFind;
+            return $element.find(selector)[0];
         }
 
         $scope.currentPage = function() {
-            if($scope.array.length == 1) {
+            if($scope.array.length <= 1) {
                 return appendPage;
             }
 
-            var containerHeight = $element.height();
-            for (var page = prependPage; page <= appendPage; ++page) {
-                var pageDiv = findPageDiv(page);
+            var theActivePage;
+
+            angular.forEach($scope.array, function(page, index) {
+                if(theActivePage > 0) {
+                    return;
+                }
+
+                var pageDiv = findPageDiv(index);
+                if(undefined === pageDiv) {
+                    return;
+                }
+
                 var pagesBottom = $(pageDiv).offset().top + $(pageDiv).height();
 
                 // if the top of the page clears the bottom of the container, its active.
-                if(pagesBottom > 0) {
-                    return page;
+                if(pagesBottom >= 0) {
+                    theActivePage = index;
                 }
-            }
+            });
+
+            return theActivePage;
         }
 
         var startPage = 1;
@@ -89,9 +98,7 @@ app.directive('holyScroll', function() {
         var last_scroll = null;
 
         var onScroll = function() {
-            if(loading) {
-                return;
-            }
+
             position = $element.scrollTop();
 
             // throttle the calculations to every 10px
@@ -99,6 +106,11 @@ app.directive('holyScroll', function() {
                 scrollAreaHeight = $element.height();
                 height = $element.find('.scrollPagesWrapper').height() - scrollAreaHeight;
                 $scope.setCurrentPage();
+
+                // if already loading data, do not queue any more data for new pages at this time.
+                if(loading) {
+                    return;
+                }
 
                 // If the user scrolls close to the bottom, append the next page div
                 if (position >= 0.9 * height) {
@@ -160,8 +172,8 @@ app.directive('holyScroll', function() {
     return {
         restrict: 'A',
         template: '<div class=\"scrollPagesWrapper\">'+
-                    '<div ng-repeat="page in array">'+
-                        '<div class="scrollPage" ng-include="scrollTemplate"></div>'+
+                    '<div ng-repeat="page in array track by $index">'+
+                        '<div ng-if="undefined !== page" class="scrollPage scrollPage-{{page.page}}" ng-include="scrollTemplate"></div>'+
                     '</div>'+
                 '</div>',
         link: link,
