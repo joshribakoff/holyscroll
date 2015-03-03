@@ -92,6 +92,10 @@ Example "page.html" - example template for when your `page` returned by the call
 
 You can structure your page object any way you want. For simplicity, its recommended that a page be an array of items. How you structure the "items" is up to you.
 
+
+#isLoading#
+The model assigned to this attribute will be set to `true` if an ajax call is pending, and set back to `false` when all network requests have completed. Use it to show/hide a loading indicator.
+
 # roadmap #
 - replace non visible pages with empty space of appropriate height (remove non visible DOM nodes).
 - for convenience, should be able to pass URL as a string instead of callback, if you do this, it assumes your page object is an array of items, and you can avoid the boilerplate hell of wiring up all the asyncronous logic every time. would also export a flag to calling scope to indicate status (1=loading, 0=idle), can then use this value with ng-show on your loading indicator, etc.

@@ -8,11 +8,11 @@ app.directive('holyScroll', function() {
     function controller($scope, $element, $http, $timeout, $interval, $location) {
 
         var scrollAreaHeight = $element.height();
-        var loading = false;
+        $scope.loading = false;
 
         $scope.array = [];
         $scope.appendPage = function(pageToLoad) {
-            loading = true;
+            $scope.loading = true;
             $scope.scrollCallback({
                 page: pageToLoad,
                 cb: function (r) {
@@ -20,7 +20,7 @@ app.directive('holyScroll', function() {
                     r.page=pageToLoad;
                     $scope.array[pageToLoad] = r;
 
-                    loading = false;
+                    $scope.loading = false;
                     $timeout(function(){
                         $scope.setCurrentPage();
                     });
@@ -29,7 +29,7 @@ app.directive('holyScroll', function() {
         }
 
         $scope.prependPage = function(pageToLoad) {
-            loading = true;
+            $scope.loading = true;
             $scope.scrollCallback({
                 page: pageToLoad,
                 cb: function (r) {
@@ -48,7 +48,7 @@ app.directive('holyScroll', function() {
                             $($element).scrollTop(newHeight);
                         });
                     }
-                    loading = false;
+                    $scope.loading = false;
                     $timeout(function() {
                         $scope.setCurrentPage();
                     });
@@ -108,7 +108,7 @@ app.directive('holyScroll', function() {
                 $scope.setCurrentPage();
 
                 // if already loading data, do not queue any more data for new pages at this time.
-                if(loading) {
+                if($scope.loading) {
                     return;
                 }
 
@@ -126,6 +126,7 @@ app.directive('holyScroll', function() {
         }
 
         $element.bind('scroll', function() { $timeout(onScroll) });
+        $element.bind('mousemove', function() { $timeout(onScroll) });
 
         // if the content is too short for there to be a scrollbar, add additional pages or "nudge" it up to 10x or until
         // there is enough content for there to be a scrollbar. Otherwise the user would be stuck on page 1 and unable to
@@ -180,6 +181,7 @@ app.directive('holyScroll', function() {
         controller: controller,
         scope: {
             page: '=',
+            loading: '=?isLoading',
             scrollCallback: '&',
             scrollTemplate: '=',
             scrollCurrentPage: '='

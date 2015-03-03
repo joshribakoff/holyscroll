@@ -13,6 +13,7 @@
 <body ng-controller="PhoneListCtrl" id="demo1">
 
     <div holy-scroll id="container"
+         is-loading="isLoading"
          scroll-template="'page.html'"
          scroll-callback="loadPhones(page, cb)"
          scroll-current-page="currentPage"></div>
@@ -25,5 +26,6 @@
             class="pagination-sm"
             boundary-links="true"></pagination>
 
+    <div id="spinner" ng-class="{visible: isLoading}">loading</div>
 </body>
 </html>
