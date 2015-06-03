@@ -16,7 +16,9 @@ app.directive('holyScroll', function() {
             $scope.scrollCallback({
                 page: pageToLoad,
                 cb: function (r) {
-
+                    if(false === r) {
+                        return;
+                    }
                     r.page=pageToLoad;
                     $scope.array[pageToLoad] = r;
 
