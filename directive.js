@@ -2,10 +2,9 @@
     'use strict';
 
     var app = angular.module('holyscroll', []);
-    app.directive('holyScroll', function() {
+    app.directive('holyScroll', function($timeout, $interval) {
 
-        function controller($scope, $element, $http, $timeout, $interval) {
-
+        function link($scope, $element) {
             var scrollAreaHeight = $element.height();
             $scope.loading = false;
 
@@ -182,7 +181,7 @@
                             '<div ng-if="undefined !== page" class="scrollPage scrollPage-{{page.page}}" ng-include="scrollTemplate"></div>' +
                         '</div>' +
                       '</div>',
-            controller: controller,
+            link: link,
             scope: {
                 page: '=',
                 loading: '=?isLoading',
