@@ -2,7 +2,11 @@
     'use strict';
 
     var app = angular.module('holyscroll', []);
-    app.directive('holyScroll', function($timeout, $interval) {
+    app.directive('holyScroll', holyScroll);
+
+    holyScroll.$inject = ['$timeout', '$interval'];
+
+    function holyScroll($timeout, $interval) {
 
         function link($scope, $element) {
             var scrollAreaHeight = $element.height();
@@ -190,6 +194,5 @@
                 scrollCurrentPage: '='
             }
         };
-    });
-
+    }
 })();
