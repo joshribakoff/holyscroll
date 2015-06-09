@@ -4,11 +4,7 @@
     var app = angular.module('holyscroll', []);
     app.directive('holyScroll', function() {
 
-        function link(scope, element, attrs) {
-
-        }
-
-        function controller($scope, $element, $http, $timeout, $interval, $location) {
+        function controller($scope, $element, $http, $timeout, $interval) {
 
             var scrollAreaHeight = $element.height();
             $scope.loading = false;
@@ -18,28 +14,28 @@
                 $scope.loading = true;
                 $scope.scrollCallback({
                     page: pageToLoad,
-                    cb: function (r) {
-                        if(false === r) {
+                    cb: function(r) {
+                        if (false === r) {
                             return;
                         }
-                        r.page=pageToLoad;
+                        r.page = pageToLoad;
                         $scope.array[pageToLoad] = r;
 
                         $scope.loading = false;
-                        $timeout(function(){
+                        $timeout(function() {
                             $scope.setCurrentPage();
                         });
                     }
                 });
-            }
+            };
 
             $scope.prependPage = function(pageToLoad) {
                 $scope.loading = true;
                 $scope.scrollCallback({
                     page: pageToLoad,
-                    cb: function (r) {
-                        if (0 != r.length) {
-                            r.page=pageToLoad;
+                    cb: function(r) {
+                        if (r.length) {
+                            r.page = pageToLoad;
                             $scope.array.unshift(r);
 
                             // @todo - fix this?
@@ -59,40 +55,40 @@
                         });
                     }
                 });
-            }
+            };
 
             var findPageDiv = function(pageNumToFind) {
-                var selector = '.scrollPagesWrapper div.scrollPage-'+pageNumToFind;
+                var selector = '.scrollPagesWrapper div.scrollPage-' + pageNumToFind;
                 return $element.find(selector)[0];
-            }
+            };
 
             $scope.currentPage = function() {
-                if($scope.array.length <= 1) {
+                if ($scope.array.length <= 1) {
                     return appendPage;
                 }
 
                 var theActivePage;
 
                 angular.forEach($scope.array, function(page, index) {
-                    if(theActivePage > 0) {
+                    if (theActivePage > 0) {
                         return;
                     }
 
                     var pageDiv = findPageDiv(index);
-                    if(undefined === pageDiv) {
+                    if (undefined === pageDiv) {
                         return;
                     }
 
                     var pagesBottom = $(pageDiv).offset().top + $(pageDiv).height();
 
                     // if the top of the page clears the bottom of the container, its active.
-                    if(pagesBottom >= 0) {
+                    if (pagesBottom >= 0) {
                         theActivePage = index;
                     }
                 });
 
                 return theActivePage;
-            }
+            };
 
             var startPage = 1;
             var appendPage = startPage;
@@ -104,16 +100,16 @@
 
             var onScroll = function() {
 
-                position = $element.scrollTop();
+                var position = $element.scrollTop();
 
                 // throttle the calculations to every 10px
-                if (null == last_scroll || Math.abs(position - last_scroll) >= 10) {
+                if (null === last_scroll || Math.abs(position - last_scroll) >= 10) {
                     scrollAreaHeight = $element.height();
-                    height = $element.find('.scrollPagesWrapper').height() - scrollAreaHeight;
+                    var height = $element.find('.scrollPagesWrapper').height() - scrollAreaHeight;
                     $scope.setCurrentPage();
 
                     // if already loading data, do not queue any more data for new pages at this time.
-                    if($scope.loading) {
+                    if ($scope.loading) {
                         return;
                     }
 
@@ -122,23 +118,27 @@
                         appendPage = appendPage + 1;
                         $scope.appendPage(appendPage);
                         return false;
-                    } else if (position <= 0.1*height) {
+                    } else if (position <= 0.1 * height) {
                         prependPage = prependPage - 1;
                         $scope.prependPage(prependPage);
                     }
                     last_scroll = position;
                 }
-            }
+            };
 
-            $element.bind('scroll', function() { $timeout(onScroll) });
-            $element.bind('mousemove', function() { $timeout(onScroll) });
+            $element.bind('scroll', function() {
+                $timeout(onScroll);
+            });
+            $element.bind('mousemove', function() {
+                $timeout(onScroll);
+            });
 
             // if the content is too short for there to be a scrollbar, add additional pages or "nudge" it up to 10x or until
             // there is enough content for there to be a scrollbar. Otherwise the user would be stuck on page 1 and unable to
             // to trigger a scroll event to load more pages.
             $scope.nudge = function() {
                 var nudgeCount = 0;
-                var promise = $interval(function () {
+                var promise = $interval(function() {
                     if (nudgeCount < 10 && $element.height() >= $element.find('.scrollPagesWrapper').height()) {
                         nudgeCount++;
                         appendPage = appendPage + 1;
@@ -147,14 +147,14 @@
                         $interval.cancel(promise);
                     }
                 }, 100);
-            }
+            };
             $scope.nudge();
 
             var scrolledToPage;
             $scope.$watch('scrollCurrentPage', function(newValue, oldValue) {
-                if (newValue && typeof oldValue != 'undefined' ) {
+                if (newValue && typeof oldValue != 'undefined') {
 
-                    if(newValue == scrolledToPage) {
+                    if (newValue == scrolledToPage) {
                         // change was due to scroll events within the directive
                     } else {
                         // change was due to change outside directive, reset scope & start out at new page.
@@ -172,17 +172,16 @@
             $scope.setCurrentPage = function() {
                 scrolledToPage = $scope.currentPage();
                 $scope.scrollCurrentPage = scrolledToPage;
-            }
+            };
         }
 
         return {
             restrict: 'A',
-            template: '<div class=\"scrollPagesWrapper\">'+
-                        '<div ng-repeat="page in array track by $index">'+
-                            '<div ng-if="undefined !== page" class="scrollPage scrollPage-{{page.page}}" ng-include="scrollTemplate"></div>'+
-                        '</div>'+
-                    '</div>',
-            link: link,
+            template: '<div class=\"scrollPagesWrapper\">' +
+                        '<div ng-repeat="page in array track by $index">' +
+                            '<div ng-if="undefined !== page" class="scrollPage scrollPage-{{page.page}}" ng-include="scrollTemplate"></div>' +
+                        '</div>' +
+                      '</div>',
             controller: controller,
             scope: {
                 page: '=',
@@ -191,7 +190,7 @@
                 scrollTemplate: '=',
                 scrollCurrentPage: '='
             }
-        }
+        };
     });
 
 })();
