@@ -10,7 +10,7 @@
             $scope.loading = false;
 
             $scope.array = [];
-            $scope.appendPage = function(pageToLoad) {
+            function appendPage(pageToLoad) {
                 $scope.loading = true;
                 $scope.scrollCallback({
                     page: pageToLoad,
@@ -23,13 +23,13 @@
 
                         $scope.loading = false;
                         $timeout(function() {
-                            $scope.setCurrentPage();
+                            setCurrentPage();
                         });
                     }
                 });
-            };
+            }
 
-            $scope.prependPage = function(pageToLoad) {
+            function prependPage(pageToLoad) {
                 $scope.loading = true;
                 $scope.scrollCallback({
                     page: pageToLoad,
@@ -51,20 +51,20 @@
                         }
                         $scope.loading = false;
                         $timeout(function() {
-                            $scope.setCurrentPage();
+                            setCurrentPage();
                         });
                     }
                 });
-            };
+            }
 
             var findPageDiv = function(pageNumToFind) {
                 var selector = '.scrollPagesWrapper div.scrollPage-' + pageNumToFind;
                 return $element.find(selector)[0];
             };
 
-            $scope.currentPage = function() {
+            function currentPage() {
                 if ($scope.array.length <= 1) {
-                    return appendPage;
+                    return appendedPage;
                 }
 
                 var theActivePage;
@@ -88,13 +88,13 @@
                 });
 
                 return theActivePage;
-            };
+            }
 
             var startPage = 1;
-            var appendPage = startPage;
-            var prependPage = startPage;
+            var appendedPage = startPage;
+            var prependedPage = startPage;
 
-            $scope.appendPage(appendPage);
+            appendPage(appendedPage);
 
             var last_scroll = null;
 
@@ -106,7 +106,7 @@
                 if (null === last_scroll || Math.abs(position - last_scroll) >= 10) {
                     scrollAreaHeight = $element.height();
                     var height = $element.find('.scrollPagesWrapper').height() - scrollAreaHeight;
-                    $scope.setCurrentPage();
+                    setCurrentPage();
 
                     // if already loading data, do not queue any more data for new pages at this time.
                     if ($scope.loading) {
@@ -115,12 +115,12 @@
 
                     // If the user scrolls close to the bottom, append the next page div
                     if (position >= 0.9 * height) {
-                        appendPage = appendPage + 1;
-                        $scope.appendPage(appendPage);
+                        appendedPage = appendedPage + 1;
+                        appendPage(appendedPage);
                         return false;
                     } else if (position <= 0.1 * height) {
-                        prependPage = prependPage - 1;
-                        $scope.prependPage(prependPage);
+                        prependedPage = prependedPage - 1;
+                        prependPage(prependedPage);
                     }
                     last_scroll = position;
                 }
@@ -136,19 +136,19 @@
             // if the content is too short for there to be a scrollbar, add additional pages or "nudge" it up to 10x or until
             // there is enough content for there to be a scrollbar. Otherwise the user would be stuck on page 1 and unable to
             // to trigger a scroll event to load more pages.
-            $scope.nudge = function() {
+            function nudge() {
                 var nudgeCount = 0;
                 var promise = $interval(function() {
                     if (nudgeCount < 10 && $element.height() >= $element.find('.scrollPagesWrapper').height()) {
                         nudgeCount++;
-                        appendPage = appendPage + 1;
-                        $scope.appendPage(appendPage);
+                        appendedPage = appendedPage + 1;
+                        appendPage(appendedPage);
                     } else {
                         $interval.cancel(promise);
                     }
                 }, 100);
-            };
-            $scope.nudge();
+            }
+            nudge();
 
             var scrolledToPage;
             $scope.$watch('scrollCurrentPage', function(newValue, oldValue) {
@@ -161,18 +161,18 @@
                         $scope.array = [];
                         $($element).scrollTop(0);
                         startPage = newValue;
-                        appendPage = newValue;
-                        prependPage = newValue;
-                        $scope.appendPage(appendPage);
-                        $scope.nudge();
+                        appendedPage = newValue;
+                        prependedPage = newValue;
+                        appendPage(appendedPage);
+                        nudge();
                     }
                 }
             });
 
-            $scope.setCurrentPage = function() {
-                scrolledToPage = $scope.currentPage();
+            function setCurrentPage() {
+                scrolledToPage = currentPage();
                 $scope.scrollCurrentPage = scrolledToPage;
-            };
+            }
         }
 
         return {
