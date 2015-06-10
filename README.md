@@ -20,7 +20,7 @@ It has these benefits:
 - Provides an API for jumping to arbitrary pages - Simply modify the "current page" variable on your scope & the scroller will jump to the new page.
 
 #Install#
-This package is available via bower & follows standard conventions. Manually save `directive.js` or use bower to install it:
+This package is available via bower & follows standard conventions. Manually save `holyscroll.js` or use bower to install it:
 
 ```
 bower install holyscroll --save
@@ -28,7 +28,7 @@ bower install holyscroll --save
 
 Include the JS in your HTML sources, after Angular:
 ```html
-<script src="bower_components/holyscroll/directive.js"></script>
+<script src="bower_components/holyscroll/src/holyscroll.js"></script>
 ```
 
 Tell Angular to add it as a dependency to your app:
