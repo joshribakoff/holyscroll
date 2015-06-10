@@ -6,8 +6,10 @@ Holyscroll - Infinite pagination hybrid for Angular JS
 ![demo gif](http://i.imgur.com/CMRofAh.gif)
 
 #What#
-This is "hybrid" pagination/infinite scrolling. It is an AngularJS directive that lets you add infinite scrollers. It has these benefits:
-- Scroll up & down "infinite scrolling" style.
+This is "hybrid" pagination/infinite scrolling. It is an AngularJS directive that lets you add infinite scrollers. Inspired by this blog post & the example(s) there - http://googlewebmastercentral.blogspot.com/2014/02/infinite-scroll-search-friendly.html
+
+It has these benefits:
+- Scroll up to "negative" pages & down "infinite scrolling" style
 - Current page is highlighted in the page number links.
 - Click on the page number links to navigate to a specific page (forwards/backwards).
 - Easily add the current page to the URL (html5 push state), so users can direct link to a specific page, and not break the "back" button.
@@ -97,10 +99,4 @@ You can structure your page object any way you want. For simplicity, its recomme
 The model assigned to this attribute will be set to `true` if an ajax call is pending, and set back to `false` when all network requests have completed. Use it to show/hide a loading indicator.
 
 # roadmap #
-- replace non visible pages with empty space of appropriate height (remove non visible DOM nodes).
-- for convenience, should be able to pass URL as a string instead of callback, if you do this, it assumes your page object is an array of items, and you can avoid the boilerplate hell of wiring up all the asyncronous logic every time. would also export a flag to calling scope to indicate status (1=loading, 0=idle), can then use this value with ng-show on your loading indicator, etc.
-- should the directive modify the URL, or leave it up the calling scope/some kind of wrapper directive?
-- ability to scroll right & left, instead of up & down? could be kinda fun.
-- jquery plugin version of this thing?
-- MeteorJS plugin ("smart package") for this thing? Ability to paginate reactive collections could be fun.
-
+- for convenience, should be able to pass URL as a string instead of callback, if you do this, it assumes your page object is an array of items, and you can avoid the boilerplate hell of wiring up all the asyncronous logic every time.
