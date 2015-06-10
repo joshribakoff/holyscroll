@@ -21,6 +21,10 @@
   "homepage": "https://github.com/joshribakoff/holyscroll",
   "devDependencies": {
     "angular-mocks": "^1.3.16",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.0",
+    "jshint-stylish": "^2.0.0",
+    "karma": "^0.12.36",
     "karma-chrome-launcher": "^0.1.12",
     "karma-jasmine": "^0.3.5"
   }
