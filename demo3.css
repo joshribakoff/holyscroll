@@ -1,0 +1,33 @@
+#container {
+    border:1px black solid;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:100px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.item {
+    margin:10px;
+    border:1px gray dashed;
+}
+.pagination {
+    position:absolute;
+    bottom:0;
+    left:0;
+}
+
+#spinner {
+    position:absolute;
+    top:0;
+    right:0;
+    opacity:0;
+    transition: opacity 0.5s;
+    border:1px black solid;
+    padding:5px;
+    background-color: rgba(255,0,0, 0.5);
+}
+#spinner.visible {
+    opacity:1;
+}
