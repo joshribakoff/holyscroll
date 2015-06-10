@@ -6,7 +6,7 @@ Holyscroll - Infinite pagination hybrid for Angular JS
 ![demo gif](http://i.imgur.com/CMRofAh.gif)
 
 #What#
-This is "hybrid" pagination/infinite scrolling. It is an AngularJS directive that lets you add infinite scrollers. Inspired by this blog post & the example(s) there - http://googlewebmastercentral.blogspot.com/2014/02/infinite-scroll-search-friendly.html
+This is "hybrid" pagination/infinite scrolling. It is an AngularJS directive that lets you add infinite scrollers. Inspired by this example - http://scrollsample.appspot.com/items
 
 It has these benefits:
 - Scroll up to "negative" pages & down "infinite scrolling" style
