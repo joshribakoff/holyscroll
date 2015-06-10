@@ -45,13 +45,13 @@
                 $scope.scrollCallback({
                     page: pageToLoad,
                     cb: function(r) {
-                        if (!r) {
+                        $scope.loading = false;
+                        if(false === r) {
                             return;
                         }
                         r.page = pageToLoad;
                         $scope.array[pageToLoad] = r;
 
-                        $scope.loading = false;
                         $timeout(function() {
                             setCurrentPage();
                         });
@@ -108,7 +108,11 @@
                 $scope.scrollCallback({
                     page: pageToLoad,
                     cb: function(r) {
-                        if (r.length) {
+                        $scope.loading = false;
+                        if(false === r) {
+                            return;
+                        }
+                        if (0 != r.length) {
                             r.page = pageToLoad;
                             $scope.array.unshift(r);
 
@@ -123,7 +127,7 @@
                                 $($element).scrollTop(newHeight);
                             });
                         }
-                        $scope.loading = false;
+
                         $timeout(function() {
                             setCurrentPage();
                         });
