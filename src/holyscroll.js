@@ -112,7 +112,7 @@
                         if(false === r) {
                             return;
                         }
-                        if (0 != r.length) {
+                        if (0 !== r.length) {
                             r.page = pageToLoad;
                             $scope.array.unshift(r);
 
