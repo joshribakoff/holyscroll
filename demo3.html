@@ -19,14 +19,6 @@
          scroll-callback="loadPhones(page, cb)"
          scroll-current-page="currentPage"></div>
 
-    <pagination
-            total-items="totalPages"
-            ng-model="currentPage"
-            items-per-page="1"
-            max-size="maxSize"
-            class="pagination-sm"
-            boundary-links="true"></pagination>
-
     <div id="spinner" ng-class="{visible: isLoading}">loading</div>
 </body>
 </html>
