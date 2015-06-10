@@ -1,5 +1,5 @@
 <h1>page: {{page.page}}</h1>
 <div ng-repeat="item in page" class="item">
-    <p><a href="{{item.data.url}}">{{item.data.title}}</a></p>
+    <p><a ng-click="$emit('showItem', item)" href="">{{item.data.title}}</a></p>
     {{item.data.ups}} Votes
 </div>
