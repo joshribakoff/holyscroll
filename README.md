@@ -17,7 +17,7 @@ It has these benefits:
 - Ability to define custom template for rendering each page.
 - Easy to add pagination links
 - Easy to bind the current page to the URL/back button.
-- Provides an API for jumping to arbitrary pages.
+- Provides an API for jumping to arbitrary pages - Simply modify the "current page" variable on your scope & the scroller will jump to the new page.
 
 #Install#
 This package is available via bower & follows standard conventions. Manually save `directive.js` or use bower to install it:
