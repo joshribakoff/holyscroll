@@ -1,7 +1,8 @@
 Holyscroll - Infinite pagination hybrid for Angular JS
 ==========
-- Standalone Demo - http://joshribakoff.github.io/holyscroll/demo1.html
-- Paginated Demo - http://joshribakoff.github.io/holyscroll/demo2.html
+- Simple infinite scrolling div - http://joshribakoff.github.io/holyscroll/demo1.html
+- Combine with ui.bootstrap pagination - http://joshribakoff.github.io/holyscroll/demo2.html
+- Reddit API feed with negative scrolling - http://joshribakoff.github.io/holyscroll/demo3.html
 
 ![demo gif](http://i.imgur.com/CMRofAh.gif)
 
